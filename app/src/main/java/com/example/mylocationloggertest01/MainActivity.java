@@ -96,7 +96,7 @@ public class MainActivity extends Activity implements OnMapReadyCallback {
                     editor.commit();
 
                     ReadGPS();
-                    this.sendEmptyMessageDelayed(0, 5000);//1000 * 60 * 10);
+                    this.sendEmptyMessageDelayed(0, 1000 * 60 * 10);
                 }
                 else if (GpsOn) {
                     GpsOn = false; GpsCount = 144; saveNum = 0;

@@ -36,12 +36,13 @@ public class MainActivity extends Activity implements OnMapReadyCallback {
     // 타이머 사용
     private boolean GpsOn = false;
     private Handler handler;
-    private int GpsCount = 144; // 10분마다 이므로 하루에 144번만 저장하면 됨.
+    public int GpsCount = 144; // 10분마다 이므로 하루에 144번만 저장하면 됨.
 
     // Google Map
     private boolean GoogleMapOn = false;
     static LatLng SEOUL = new LatLng(37.56, 126.97);
     private GoogleMap googleMap;
+    public Marker mark[];
 
     public void onMapReady(final GoogleMap map) {
         googleMap = map;
@@ -53,7 +54,6 @@ public class MainActivity extends Activity implements OnMapReadyCallback {
         GoogleMapOn = true;
         googleMap.setMyLocationEnabled(true);
 
-        //Marker seoul = googleMap.addMarker(new MarkerOptions().position(SEOUL).title("Seoul"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom( SEOUL, 15));
         googleMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
     }
@@ -79,15 +79,17 @@ public class MainActivity extends Activity implements OnMapReadyCallback {
             public void handleMessage(Message msg) {
                 if (GpsCount > 0){
                     GpsCount--;
-                    ReadGPS();
                     SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putInt("GpsCount", GpsCount);
                     editor.commit();
+
+                    ReadGPS();
                     this.sendEmptyMessageDelayed(0, 1000 * 60 * 10);
                 }
-                else if (GpsOn)
+                else if (GpsOn) {
                     GpsOn = false; GpsCount = 144; saveNum = 0;
+                }
             }
         };
 
@@ -112,7 +114,7 @@ public class MainActivity extends Activity implements OnMapReadyCallback {
             txtLon.setText(String.valueOf(longitude));
             Toast.makeText(
                     getApplicationContext(),
-                    "남은 횟수 : " + GpsCount,
+                    "남은 횟수 : " + GpsCount + ", " + saveNum,
                     Toast.LENGTH_LONG).show();
             // 밑으로 저장하는 코드
             SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
@@ -135,12 +137,14 @@ public class MainActivity extends Activity implements OnMapReadyCallback {
             SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
             double latitude; double longitude;
             for (int i = 0; i < 144; i++) {
+                mark[i].remove();
+
                 latitude = pref.getFloat("Lat" + i, -1);
                 longitude = pref.getFloat("Lon" + i, -1);
                 if (latitude > 0 && longitude > 0) {
                     SEOUL = new LatLng(latitude, longitude);
 
-                    Marker seoul = googleMap.addMarker(new MarkerOptions().position(SEOUL).title("You " + i));
+                    mark[i] = googleMap.addMarker(new MarkerOptions().position(SEOUL).title("You " + i));
                     if (i == 0) {
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(SEOUL, 15));
                         googleMap.animateCamera(CameraUpdateFactory.zoomTo(20), 2000, null);

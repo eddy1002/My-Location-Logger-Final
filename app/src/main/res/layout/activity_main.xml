@@ -25,7 +25,7 @@
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="TextView"
+        android:text="-"
         android:layout_width="150dp"
         android:id="@+id/Latitude"
         android:textAlignment="center"
@@ -33,7 +33,7 @@
         android:layout_height="20dp" />
 
     <TextView
-        android:text="TextView"
+        android:text="-"
         android:layout_width="150dp"
         android:layout_height="20dp"
         android:layout_alignLeft="@+id/Latitude"
@@ -49,15 +49,84 @@
         android:id="@+id/But_GPS"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:onClick="ReadGPS" />
 
     <Button
-        android:text="SaveTest"
+        android:text="ShowRate"
         android:layout_height="50dp"
         android:id="@+id/But_STs"
         android:layout_width="100dp"
-        android:onClick="SaveTestting"
+        android:onClick="showRate"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <RadioButton
+        android:text="Rest"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/radioButton_Rest"
+        android:layout_width="120dp"
+        android:checked="true"
+        android:onClick="radioCheckR" />
+
+    <RadioButton
+        android:text="Study"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/radioButton_Rest"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/radioButton_Study"
+        android:onClick="radioCheckS" />
+
+    <RadioButton
+        android:text="Eat"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/radioButton_Study"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/radioButton_Eat"
+        android:onClick="radioCheckE" />
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_alignBottom="@+id/radioButton_Eat"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/editText_Name" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_above="@+id/But_STs"
+        android:layout_alignLeft="@+id/But_STs"
+        android:layout_alignStart="@+id/But_STs"
+        android:layout_marginBottom="77dp"
+        android:id="@+id/textView_Rrate"
+        android:layout_height="20dp" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/textView_Rrate"
+        android:layout_alignLeft="@+id/textView_Rrate"
+        android:layout_alignStart="@+id/textView_Rrate"
+        android:id="@+id/textView_Srate"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="150dp"
+        android:layout_below="@+id/textView_Srate"
+        android:layout_alignLeft="@+id/textView_Srate"
+        android:layout_alignStart="@+id/textView_Srate"
+        android:id="@+id/textView_Erate"
+        android:layout_height="20dp"
+        android:layout_marginTop="0dp" />
 </RelativeLayout>
